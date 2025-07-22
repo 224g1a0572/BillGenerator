@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Bill</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #fdfcfb, #e2d1c3);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+        }
+        .bill-container {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            padding: 30px 40px;
+            max-width: 800px;
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+            color: #c0392b;
+            margin-bottom: 25px;
+        }
+        table {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        thead {
+            background-color: #f5c6aa;
+        }
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        tr:nth-child(even) {
+            background-color: #fdf5e6;
+        }
+        tr:last-child td {
+            font-weight: bold;
+            background-color: #fcebd4;
+        }
+        .text-success {
+            margin-top: 30px;
+            font-size: 1.3rem;
+        }
+    </style>
+</head>
+<body class="container mt-4">
+    <h2>Bill Summary</h2>
+    <p><strong>Name:</strong> {{ customer_name }}</p>
+    <p><strong>Phone:</strong> {{ phone }}</p>
+    <p><strong>Table:</strong> {{ table_no }}</p>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Item</th><th>Price</th><th>Qty</th><th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>₹{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>₹{{ item[3] }}</td>
+            </tr>
+            {% endfor %}
+            <tr><td colspan="3"><strong>Total</strong></td><td>₹{{ total }}</td></tr>
+            <tr><td colspan="3">GST (5%)</td><td>₹{{ gst }}</td></tr>
+            <tr><td colspan="3"><strong>Grand Total</strong></td><td><strong>₹{{ grand_total }}</strong></td></tr>
+        </tbody>
+    </table>
+    <h4 class="text-success text-center">Thank you! Visit Again!</h4>
+    <a href="{{ url_for('index') }}" class="btn-home text-center">← Back to Home</a>
+</body>
+</html>
